@@ -1,0 +1,33 @@
+pipeline { 
+    agent any 
+
+    tools { 
+        maven 'Maven' // No extra space; must match Jenkins tool configuration
+    } 
+
+    stages { 
+        stage('Checkout') {  
+            steps { 
+                git branch: 'master', url: 'https://github.com/sandhya102005/sandhya1.git'  
+            } 
+        } 
+
+        stage('Build') {  
+            steps { 
+                bat 'mvn clean package'  
+            } 
+        } 
+
+        stage('Test') {  
+            steps { 
+                bat 'mvn test'  
+            } 
+        } 
+
+        stage('Run Application') {  
+            steps { 
+                bat 'java -jar target/sandhya1-0.0.1-SNAPSHOT.jar'  
+            } 
+        }
+    }
+}
